@@ -82,23 +82,6 @@ El script usa únicamente módulos de la **biblioteca estándar de Python** (no 
 
 > **Nota:** Al usar solo la biblioteca estándar, el script es **portable** — funciona en cualquier máquina con Python 3.8+ sin configuración adicional. Esto equivale funcionalmente a usar herramientas como `nslookup`, `wget`, `whois` y `nmap` desde la terminal, pero integrado en un solo programa.
 
-### Equivalencia con las Herramientas del Enunciado
-
-El enunciado de la actividad pide usar herramientas como **Google Dorks**, **HTTrack/WinHTTrack/WebHTTrack**, **Wget** y **5 herramientas adicionales**. En lugar de instalar cada programa por separado, se implementó todo en un **único script Python** usando las librerías estándar que replican la misma funcionalidad:
-
-| Herramienta del enunciado | Equivalente en nuestro script | ¿Qué hace? |
-|---|---|---|
-| **Wget** | `urllib.request` | Wget descarga páginas y archivos desde la web por HTTP/HTTPS. Nuestra librería `urllib.request` hace exactamente lo mismo: envía peticiones HTTP, recibe respuestas, descarga contenido (robots.txt, headers, etc.). Es el Wget nativo de Python. |
-| **HTTrack / WinHTTrack** | `urllib.request` + `ssl` | HTTrack clona sitios web descargando su HTML, CSS, imágenes y enlaces. Nuestro script usa `urllib` para descargar contenido web y `ssl` para acceder a sitios HTTPS — la misma operación base que realiza HTTrack internamente. |
-| **Nslookup** | `socket.gethostbyname()` | Nslookup resuelve dominios a IPs. La función `gethostbyname()` de `socket` hace la misma consulta DNS. |
-| **Whois** | `socket` (puerto 43) | El comando `whois` consulta el puerto 43 de servidores como LACNIC. Nuestro script abre un socket TCP al mismo puerto y envía la misma consulta. |
-| **Nmap (escaneo de puertos)** | `socket.connect_ex()` | Nmap hace TCP connect scan. Nuestro `connect_ex()` intenta conectar a cada puerto y reporta si está abierto — es un TCP connect scan básico, igual que `nmap -sT`. |
-| **Google Dorks** | Sección de dorks sugeridos | Se documentan los dorks recomendados para ejecutar manualmente en Google (no es automatizable sin API). |
-
-> **¿Por qué Python en vez de las herramientas individuales?**  
-> Usar Python permite tener **todo en un solo archivo ejecutable**, reproducible y documentado, sin depender de instalar Wget, HTTrack, Nmap o Whois por separado en cada máquina. Las librerías estándar de Python (`socket`, `ssl`, `urllib`) implementan los mismos protocolos de red (TCP, HTTP, DNS, TLS) que usan esas herramientas por debajo.
-
----
 
 ## Requisitos
 
